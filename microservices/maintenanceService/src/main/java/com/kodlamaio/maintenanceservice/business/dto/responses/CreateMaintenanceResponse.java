@@ -1,6 +1,5 @@
-package com.kodlamaio.maintenanceservice.entities;
+package com.kodlamaio.maintenanceservice.business.dto.responses;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,18 +10,13 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "maintenances")
-public class Maintenance {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+@NoArgsConstructor
+public class CreateMaintenanceResponse {
     private UUID id;
     private UUID carId;
     private String description;
     private boolean isCompleted;
     private LocalDate startDate;
     private LocalDate endDate;
-
 }

@@ -1,48 +1,41 @@
 package com.kodlamaio.maintenanceservice.business.rules;
 
-import com.kodlamaio.commonpackage.utils.constants.Messages;
 import com.kodlamaio.commonpackage.utils.exceptions.BusinessException;
-import com.kodlamaio.maintenanceservice.api.clients.CarClient;
+import com.kodlamaio.maintenanceservice.api.client.CarClient;
 import com.kodlamaio.maintenanceservice.repository.MaintenanceRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MaintenanceBusinessRules {
-    private final MaintenanceRepository repository;
+    private final MaintenanceRepository maintenanceRepository;
+    @Qualifier("com.kodlamaio.maintenanceservice.api.client.CarClient")
     private final CarClient carClient;
-    public void checkIfMaintenanceExists(UUID id) {
-        if (!repository.existsById(id)) {
-            throw new BusinessException(Messages.Maintenance.NotExists);
+
+    public void checkIfMaintenanceExistsById(UUID id){
+        if(!maintenanceRepository.existsById(id)){
+            throw new BusinessException("This maintenance info is not registered in the system.");
         }
     }
-
-    public void ensureCarIsAvailable(UUID carId) {
+    public void checkIfCarIsInMaintenance(UUID carId){
+        if(maintenanceRepository.existsByCarIdAndIsCompletedIsFalse(carId)){
+            throw new BusinessException("This car is in maintenance.");
+        }
+    }
+    public void checkIfCarIsNotInMaintenance(UUID carId) {
+        if (!maintenanceRepository.existsByCarIdAndIsCompletedIsFalse(carId)) {
+            throw new BusinessException("This car is no in maintenance");
+        }
+    }
+    public void ensureCarIsAvailable(UUID carId){
         var response = carClient.checkIfCarAvailable(carId);
         if (!response.isSuccess()) {
             throw new BusinessException(response.getMessage());
         }
     }
-    public void checkIfCarIsRented(UUID carId) {
-        var response = carClient.checkIfCarIsRented(carId);
-        if (!response.isSuccess()){
-            throw new BusinessException(Messages.Maintenance.CarIsRented);
-        }
-    }
-    public void checkIfCarIsNotUnderMaintenance(UUID carId) {
-        var response = carClient.checkIfCarNotUnderMaintenance(carId);
-        if (!response.isSuccess()) {
-            throw new BusinessException(Messages.Maintenance.CarNotExists);
-        }
-    }
 
-    public void checkIfCarUnderMaintenance(UUID carId) {
-        var response = carClient.checkIfCarUnderMaintenance(carId);
-        if (!response.isSuccess()) {
-            throw new BusinessException(Messages.Maintenance.CarExists);
-        }
-    }
 }

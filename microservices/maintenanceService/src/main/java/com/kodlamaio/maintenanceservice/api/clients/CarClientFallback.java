@@ -9,8 +9,10 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class CarClientFallback implements CarClient {
+
     @Override
     public ClientResponse checkIfCarAvailable(UUID carId) {
+
         log.info("INVENTORY SERVICE IS DOWN!");
         throw new RuntimeException("INVENTORY SERVICE IS DOWN!");
     }
