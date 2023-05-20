@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/microservices/commonPackage/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/filterService/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/inventoryService/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/discoveryServer/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/apiGetaway/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/apiGateway/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/rentalService/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/PaymentService/pom.xml" />
+        <option value="$PROJECT_DIR$/microservices/maintenanceService/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/microservices/apiGetaway/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" project-jdk-name="18" project-jdk-type="JavaSDK" />
+</project>

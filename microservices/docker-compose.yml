@@ -1,0 +1,33 @@
+version: '3.8'
+name: rent-a-car-microservice-app
+services:
+  kafka:
+    image: bashj79/kafka-kraft
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka_data:/opt/kafka/kafka-logs
+
+  mongodb:
+    container_name: filter-db-dev
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  mysqldb:
+    container_name: maintenance-db
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: maintenancedb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldb_data:/var/lib/mysql
+
+volumes:
+  kafka_data:
+  mongodb_data:
+  mysqldb_data:

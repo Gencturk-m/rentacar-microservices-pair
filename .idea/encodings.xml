@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/microservices/apiGateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/apiGateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/apiGetaway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/commonPackage/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/commonPackage/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/discoveryServer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/discoveryServer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/filterService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/filterService/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/inventoryService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/inventoryService/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/maintenanceService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/paymentService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/microservices/rentalService/src/main/java" charset="UTF-8" />
+  </component>
+</project>
