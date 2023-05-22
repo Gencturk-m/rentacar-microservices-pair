@@ -20,8 +20,4 @@ public interface CarService {
     void delete(UUID id);
     ClientResponse checkIfCarAvailable(UUID id);
     void changeStateByCarId(CarState carState, UUID id);
-    ClientResponse checkIfCarRented(UUID carId);
-    ClientResponse checkIfCarUnderMaintenance(UUID carId);
-    ClientResponse checkIfCarNotUnderMaintenance(UUID carId);
-
 }

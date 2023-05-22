@@ -21,7 +21,6 @@ import java.util.UUID;
 @RequestMapping("/api/cars")
 public class CarsController {
     private final CarService carService;
-
     @GetMapping()
     public List<GetAllCarsResponse> getAll(@RequestParam(required = false) boolean isMaintenanceIncluded){
         return carService.getAll(isMaintenanceIncluded);
@@ -44,24 +43,8 @@ public class CarsController {
     public void delete(@PathVariable UUID id){
         carService.delete(id);
     }
-
     @GetMapping("/check-car-available/{id}")
     public ClientResponse checkIfCarAvailable(@PathVariable UUID id) {
         return carService.checkIfCarAvailable(id);
     }
-
-    @GetMapping("/api/cars/check-car-rented/{carId}")
-    public ClientResponse checkIfCarRented(@PathVariable UUID carId){
-        return carService.checkIfCarRented(carId);
-    }
-
-    @GetMapping("/api/cars/check-car-under-maintenance/{carId}")
-    public ClientResponse checkCarUnderMaintenance(@PathVariable UUID carId){
-        return carService.checkIfCarUnderMaintenance(carId);
-    }
-    @GetMapping("/api/cars/check-car-not-under-maintenance/{carId}")
-    public ClientResponse checkCarNotUnderMaintenance(@PathVariable UUID carId){
-        return carService.checkIfCarNotUnderMaintenance(carId);
-    }
-
 }

@@ -18,7 +18,7 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private int modelYear;
+    private String modelYear;
     private String plate;
     @Enumerated(EnumType.STRING)
     private CarState carState;

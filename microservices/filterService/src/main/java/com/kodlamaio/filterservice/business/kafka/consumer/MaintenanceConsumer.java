@@ -1,8 +1,8 @@
 package com.kodlamaio.filterservice.business.kafka.consumer;
 
+import com.kodlamaio.commonpackage.events.maintenance.MaintenanceCompletedEvent;
 import com.kodlamaio.commonpackage.events.maintenance.MaintenanceCreatedEvent;
-import com.kodlamaio.commonpackage.events.maintenance.MaintenanceDeleteEvent;
-import com.kodlamaio.commonpackage.events.maintenance.MaintenanceReturnCarEvent;
+import com.kodlamaio.commonpackage.events.maintenance.MaintenanceDeletedEvent;
 import com.kodlamaio.filterservice.business.abstracts.FilterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,21 +30,21 @@ public class MaintenanceConsumer {
             topics = "maintenance-deleted",
             groupId = "filter-maintenance-delete"
     )
-    public void consume(MaintenanceDeleteEvent maintenanceDeleteEvent) {
-        var filter = filterService.getByCarId(maintenanceDeleteEvent.getCarId());
+    public void consume(MaintenanceDeletedEvent maintenanceDeletedEvent) {
+        var filter = filterService.getByCarId(maintenanceDeletedEvent.getCarId());
         filter.setState("AVAILABLE");
         filterService.add(filter);
-        log.info("Maintenance deleted event consumed {}", maintenanceDeleteEvent);
+        log.info("Maintenance deleted event consumed {}", maintenanceDeletedEvent);
     }
 
     @KafkaListener(
-            topics = "maintenance-return-car",
-            groupId = "filter-maintenance-return"
+            topics = "maintenance-completed",
+            groupId = "filter-maintenance-complete"
     )
-    public void consume(MaintenanceReturnCarEvent maintenanceReturnCarEvent) {
-        var filter = filterService.getByCarId(maintenanceReturnCarEvent.getCarId());
+    public void consume(MaintenanceCompletedEvent maintenanceCompletedEvent) {
+        var filter = filterService.getByCarId(maintenanceCompletedEvent.getCarId());
         filter.setState("AVAILABLE");
         filterService.add(filter);
-        log.info("Maintenance car return event consumed {}", maintenanceReturnCarEvent);
+        log.info("Maintenance completed event consumed {}", maintenanceCompletedEvent);
     }
 }

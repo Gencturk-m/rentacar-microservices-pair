@@ -9,6 +9,7 @@ import com.kodlamaio.rentalservice.business.dto.responses.GetRentalResponse;
 import com.kodlamaio.rentalservice.business.dto.responses.UpdateRentalResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/rentals")
 public class RentalsController {
     private final RentalService service;

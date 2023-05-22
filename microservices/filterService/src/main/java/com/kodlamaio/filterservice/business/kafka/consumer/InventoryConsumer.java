@@ -6,20 +6,16 @@ import com.kodlamaio.commonpackage.events.inventory.CarDeletedEvent;
 import com.kodlamaio.commonpackage.utils.mappers.ModelMapperService;
 import com.kodlamaio.filterservice.business.abstracts.FilterService;
 import com.kodlamaio.filterservice.entities.Filter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class InventoryConsumer {
     private final FilterService filterService;
     private final ModelMapperService modelMapperService;
-
-    public InventoryConsumer(FilterService filterService,
-                             ModelMapperService modelMapperService) {
-        this.filterService = filterService;
-        this.modelMapperService = modelMapperService;
-    }
 
     @KafkaListener(
             topics = "car-created",

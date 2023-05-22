@@ -1,8 +1,8 @@
 package com.kodlamaio.inventoryservice.business.kafka.consumer;
 
+import com.kodlamaio.commonpackage.events.maintenance.MaintenanceCompletedEvent;
 import com.kodlamaio.commonpackage.events.maintenance.MaintenanceCreatedEvent;
-import com.kodlamaio.commonpackage.events.maintenance.MaintenanceDeleteEvent;
-import com.kodlamaio.commonpackage.events.maintenance.MaintenanceReturnCarEvent;
+import com.kodlamaio.commonpackage.events.maintenance.MaintenanceDeletedEvent;
 import com.kodlamaio.inventoryservice.business.abstracts.CarService;
 import com.kodlamaio.inventoryservice.entities.enums.CarState;
 import lombok.RequiredArgsConstructor;
@@ -29,17 +29,17 @@ public class MaintenanceConsumer {
             topics = "maintenance-deleted",
             groupId = "inventory-maintenance-delete"
     )
-    public void consume(MaintenanceDeleteEvent maintenanceDeleteEvent) {
-        carService.changeStateByCarId(CarState.AVAILABLE, maintenanceDeleteEvent.getCarId());
-        log.info("Maintenance deleted event consumed {}", maintenanceDeleteEvent);
+    public void consume(MaintenanceDeletedEvent maintenanceDeletedEvent) {
+        carService.changeStateByCarId(CarState.AVAILABLE, maintenanceDeletedEvent.getCarId());
+        log.info("Maintenance deleted event consumed {}", maintenanceDeletedEvent);
     }
 
     @KafkaListener(
-            topics = "maintenance-return-car",
-            groupId = "inventory-maintenance-return"
+            topics = "maintenance-completed",
+            groupId = "inventory-maintenance-complete"
     )
-    public void consume(MaintenanceReturnCarEvent maintenanceReturnCarEvent) {
-        carService.changeStateByCarId(CarState.AVAILABLE, maintenanceReturnCarEvent.getCarId());
-        log.info("Maintenance car return event consumed {}", maintenanceReturnCarEvent);
+    public void consume(MaintenanceCompletedEvent maintenanceCompletedEvent) {
+        carService.changeStateByCarId(CarState.AVAILABLE, maintenanceCompletedEvent.getCarId());
+        log.info("Maintenance completed event consumed {}", maintenanceCompletedEvent);
     }
 }

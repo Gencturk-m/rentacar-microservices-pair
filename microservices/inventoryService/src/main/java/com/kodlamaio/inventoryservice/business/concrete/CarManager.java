@@ -83,49 +83,6 @@ public class CarManager implements CarService {
         return response;
     }
 
-
-    @Override
-    public ClientResponse checkIfCarRented(UUID carId) {
-        var response = new ClientResponse();
-        try {
-            carBusinessRules.checkIfCarExists(carId);
-            carBusinessRules.checkCarIsRented(carId);
-            response.setSuccess(true);
-        } catch (BusinessException exception) {
-            response.setSuccess(false);
-            response.setMessage(exception.getMessage());
-        }
-        return response;
-    }
-
-    @Override
-    public ClientResponse checkIfCarUnderMaintenance(UUID carId) {
-        var response = new ClientResponse();
-        try {
-            carBusinessRules.checkIfCarExists(carId);
-            carBusinessRules.checkCarUnderMaintenance(carId);
-            response.setSuccess(true);
-        } catch (BusinessException exception) {
-            response.setSuccess(false);
-            response.setMessage(exception.getMessage());
-        }
-        return response;
-    }
-
-    @Override
-    public ClientResponse checkIfCarNotUnderMaintenance(UUID carId) {
-        var response = new ClientResponse();
-        try {
-            carBusinessRules.checkIfCarExists(carId);
-            carBusinessRules.checkCarNotUnderMaintenance(carId);
-            response.setSuccess(true);
-        } catch (BusinessException exception) {
-            response.setSuccess(false);
-            response.setMessage(exception.getMessage());
-        }
-        return response;
-    }
-
     @Override
     public void changeStateByCarId(CarState carState, UUID id) {
         carRepository.changeStateByCarId(carState,id);
@@ -148,5 +105,4 @@ public class CarManager implements CarService {
             response.setMessage(exception.getMessage());
         }
     }
-
 }

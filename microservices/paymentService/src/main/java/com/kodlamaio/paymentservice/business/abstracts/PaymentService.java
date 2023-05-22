@@ -1,0 +1,21 @@
+package com.kodlamaio.paymentservice.business.abstracts;
+
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
+import com.kodlamaio.paymentservice.business.dto.requests.CreatePaymentRequest;
+import com.kodlamaio.paymentservice.business.dto.requests.UpdatePaymentRequest;
+import com.kodlamaio.paymentservice.business.dto.responses.CreatePaymentResponse;
+import com.kodlamaio.paymentservice.business.dto.responses.GetAllPaymentsResponse;
+import com.kodlamaio.paymentservice.business.dto.responses.GetPaymentResponse;
+import com.kodlamaio.paymentservice.business.dto.responses.UpdatePaymentResponse;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface PaymentService {
+    List<GetAllPaymentsResponse> getAll();
+    GetPaymentResponse getById(UUID id);
+    CreatePaymentResponse add(CreatePaymentRequest createPaymentRequest);
+    UpdatePaymentResponse update(UpdatePaymentRequest updatePaymentRequest);
+    void delete(UUID id);
+    void processRentalPayment(CreateRentalPaymentRequest createRentalPaymentRequest);
+}

@@ -2,7 +2,9 @@ package com.kodlamaio.rentalservice.business.concrete;
 
 import com.kodlamaio.commonpackage.events.rental.RentalCreatedEvent;
 import com.kodlamaio.commonpackage.events.rental.RentalDeletedEvent;
+import com.kodlamaio.commonpackage.events.rental.RentalPaymentEvent;
 import com.kodlamaio.commonpackage.kafka.KafkaProducer;
+import com.kodlamaio.commonpackage.utils.dto.CreateRentalPaymentRequest;
 import com.kodlamaio.commonpackage.utils.mappers.ModelMapperService;
 import com.kodlamaio.rentalservice.business.abstracts.RentalService;
 import com.kodlamaio.rentalservice.business.dto.requests.CreateRentalRequest;
@@ -52,18 +54,22 @@ public class RentalManager implements RentalService {
     public CreateRentalResponse add(CreateRentalRequest createRentalRequest) {
         rentalBusinessRules.ensureCarIsAvailable(createRentalRequest.getCarId());
         var rental = modelMapperService.forRequest().map(createRentalRequest, Rental.class);
-        rental.setId(UUID.randomUUID());
+        rental.setId(null);
         rental.setTotalPrice(getTotalPrice(rental));
         rental.setRentedAt(LocalDate.now());
-        Rental createdRental = rentalRepository.save(rental);
 
-        sendKafkaRentalCreatedEvent(createdRental.getCarId());
+        CreateRentalPaymentRequest createRentalPaymentRequest = new CreateRentalPaymentRequest();
+        modelMapperService.forRequest().map(createRentalRequest.getPaymentRequest(), createRentalPaymentRequest);
+        createRentalPaymentRequest.setPrice(getTotalPrice(rental));
+        SendKafkaRentalPaymentEvent(createRentalPaymentRequest);
+        
+        rentalRepository.save(rental);
+        sendKafkaRentalCreatedEvent(createRentalRequest.getCarId());
 
         var response = modelMapperService.forResponse().map(rental, CreateRentalResponse.class);
 
         return response;
     }
-
     @Override
     public UpdateRentalResponse update(UpdateRentalRequest updateRentalRequest) {
         rentalBusinessRules.checkIfRentalExists(updateRentalRequest.getId());
@@ -89,5 +95,9 @@ public class RentalManager implements RentalService {
     private void sendKafkaRentalDeletedEvent(UUID id){
         var carId = rentalRepository.findById(id).orElseThrow().getCarId();
         kafkaProducer.sendMessage(new RentalDeletedEvent(carId), "rental-deleted");
+    }
+    private void SendKafkaRentalPaymentEvent(CreateRentalPaymentRequest createRentalPaymentRequest) {
+        kafkaProducer.sendMessage(new RentalPaymentEvent(createRentalPaymentRequest),
+                "rental-payment-created");
     }
 }

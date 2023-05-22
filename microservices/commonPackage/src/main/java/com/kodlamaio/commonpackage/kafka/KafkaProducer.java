@@ -1,6 +1,7 @@
 package com.kodlamaio.commonpackage.kafka;
 
 import com.kodlamaio.commonpackage.events.Event;
+import com.kodlamaio.commonpackage.events.rental.RentalPaymentEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,4 +24,5 @@ public class KafkaProducer {
 
         kafkaTemplate.send(message);
     }
+
 }

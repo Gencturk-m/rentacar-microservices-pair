@@ -1,4 +1,4 @@
-package com.kodlamaio.commonpackage.events.maintenance;
+package com.kodlamaio.commonpackage.events.rentel;
 
 import com.kodlamaio.commonpackage.events.Event;
 import lombok.AllArgsConstructor;
@@ -12,6 +12,6 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MaintenanceCreatedEvent implements Event {
+public class RentalDeletedEvent implements Event {
     private UUID carId;
 }

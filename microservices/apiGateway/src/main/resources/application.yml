@@ -6,7 +6,6 @@ spring:
       discovery:
         locator:
           enabled: true
-          lowerCaseServiceId: true
 eureka:
   client:
     fetch-registry: true
@@ -14,7 +13,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
   instance:
-    instance-id: ${spring.application.name}:${instanceId:${random.value}}
+    instance-id: ${spring.application.name}:${random.value}
     prefer-ip-address: true
 server:
   port: 9010

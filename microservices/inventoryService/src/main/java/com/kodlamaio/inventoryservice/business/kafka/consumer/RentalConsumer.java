@@ -30,6 +30,6 @@ public class RentalConsumer {
     )
     public void consume(RentalDeletedEvent rentalDeletedEvent) {
         carService.changeStateByCarId(CarState.AVAILABLE, rentalDeletedEvent.getCarId());
-        log.info("Rental created event consumed {}", rentalDeletedEvent);
+        log.info("Rental deleted event consumed {}", rentalDeletedEvent);
     }
 }

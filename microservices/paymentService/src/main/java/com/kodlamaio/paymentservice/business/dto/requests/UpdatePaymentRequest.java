@@ -1,4 +1,4 @@
-package com.kodlamaio.rentalservice.business.dto.requests;
+package com.kodlamaio.paymentservice.business.dto.requests;
 
 import com.kodlamaio.commonpackage.utils.dto.PaymentRequest;
 import jakarta.validation.constraints.Min;
@@ -10,17 +10,16 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateRentalRequest {
+public class UpdatePaymentRequest extends PaymentRequest {
+
+    private UUID id;
+
     @NotNull
-    private UUID carId;
-    @Min(1)
-    private double dailyPrice;
-    @Min(1)
-    private int rentedForDays;
-    // TODO: Credit Card Information
-    private PaymentRequest paymentRequest;
+    @Min(value = 1)
+    private double balance;
+
 }
